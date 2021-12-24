@@ -8,17 +8,27 @@ struct Node
 };
 class Queue
 {
+    // with two pointers at the front and rear, queue implementation is rather straightforward using list
     Node *front = NULL;
     Node *rear = NULL;
 
-    public:
+public:
+    bool isEmpty()
+    {
+        // if the queue is empty, front and rear both would be -1
+        if (rear == NULL && front == NULL)
+            return true;
+        else
+            return false;
+    }
+
     void enqueue(int elem)
     {
         Node *newNode = new Node;
         newNode->data = elem;
         newNode->next = NULL;
 
-        if (front == NULL && rear == NULL)
+        if (isEmpty())
         {
             front = rear = newNode;
         }
@@ -28,10 +38,11 @@ class Queue
             rear = newNode;
         }
     }
+
     void printList()
     {
-        Node* curHead = front;
-        while(curHead!=NULL)
+        Node *curHead = front;
+        while (curHead != NULL)
         {
             cout << curHead->data << " ";
             curHead = curHead->next;
@@ -41,16 +52,28 @@ class Queue
 
     int top()
     {
+        if (isEmpty())
+        {
+            cout << "queue is empty\n";
+            return -1;
+        }
         return front->data;
     }
 
     void dequeue()
     {
-        if (front==NULL) return;
-        Node* dltNode = front;
-        if(front==rear)
+        if (isEmpty())
         {
-            front=rear=NULL;
+            cout << "queue is empty\n";
+            return;
+        }
+
+        Node *dltNode = front;
+
+        // when queue contain only one element
+        if (front == rear)
+        {
+            front = rear = NULL;
         }
         else
         {
@@ -63,15 +86,17 @@ class Queue
 int main()
 {
     Queue q;
-    int n=10;
-    while(n--) q.enqueue(n);
-    q.printList();
-    n=10;
-    while(n--)
+    int n = 11;
+    while (n--)
+    {
+        q.enqueue(n);
+        q.printList();
+    }
+
+    n = 11;
+    while (n--)
     {
         q.dequeue();
         q.printList();
     }
-    
-
 }

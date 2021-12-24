@@ -8,6 +8,7 @@ bool is_balanced(string bracs)
     stack<char> s;
     for (int i = 0; i < bracs.size(); i++)
     {
+        //add to the stack if its an opening parathesis
         if (bracs[i] == '[' || bracs[i] == '(' || bracs[i] == '{')
         {
             s.push(bracs[i]);
@@ -16,6 +17,7 @@ bool is_balanced(string bracs)
         {
             if (s.empty())
                 return false;
+            //if opening paranthesis match the close parathesis pop the stack, otherwise string is not balanced
             if (bracs[i] == ')')
             {
                 if (s.top() == '(')
@@ -39,6 +41,7 @@ bool is_balanced(string bracs)
             }
         }
     }
+    //there should be no excessive parathesis at the end
     if (s.empty())
         return true;
     else

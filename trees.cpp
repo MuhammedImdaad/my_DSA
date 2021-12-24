@@ -36,6 +36,7 @@ public:
     void deleteNode(Node** rootPtr, int elem);
 };
 
+
 void Tree::deleteNode(Node** rootPtr, int elem)
 {
     Node*& root = *rootPtr; //root is an alias to what is pointed by rootPtr, now instead of using *rootPtr, can use root
@@ -95,6 +96,7 @@ bool Tree::isBST(Node *root, int min, int max)
         return false;
 }
 
+/*traverse the tree in [left, node, right] */
 void Tree::inOrder(Node *root)
 {
     if (root == NULL)
@@ -106,6 +108,7 @@ void Tree::inOrder(Node *root)
         inOrder(root->right);
 }
 
+/*traverse the tree in [node, left, right] */
 void Tree::preOrder(Node *root)
 {
     if (root == NULL)
@@ -115,6 +118,7 @@ void Tree::preOrder(Node *root)
     preOrder(root->right);
 }
 
+/*traverse the tree in [left, right, node] */
 void Tree::postOrder(Node *root)
 {
     if (root == NULL)
@@ -124,6 +128,7 @@ void Tree::postOrder(Node *root)
     cout << root->data << " ";
 }
 
+/*traverse the tree in breath first */
 void Tree::leverOrder()
 {
     if (root == NULL)
@@ -134,6 +139,7 @@ void Tree::leverOrder()
 
     while (!q.empty())
     {
+        //when a node is visited, add its children to the queue
         Node *curNode = q.front();
         cout << curNode->data << " ";
         if (curNode->left != NULL)
@@ -145,16 +151,19 @@ void Tree::leverOrder()
     cout << endl;
 }
 
+/* find the root height which is the maximum distance between a root and the a leaf*/
 int Tree::findHeight(Node *root)
 {
+    //a leaf node will have a height of 0
     if (root == NULL)
     {
         return -1;
     }
-
-    return std::max(findHeight(root->left), findHeight(root->right)) + 1;
+    //return 1 + maximum height of right or left subtree
+    return 1 + std::max(findHeight(root->left), findHeight(root->right));
 }
 
+/* find the minimum element in the BST*/
 Node* Tree::findMin(Node *curRoot)
 {
     if (curRoot == NULL)
@@ -162,6 +171,7 @@ Node* Tree::findMin(Node *curRoot)
         cout << "empty list\n";
         return NULL;
     }
+    //move to the left most node, it will contain the minimum value
     while (curRoot->left != NULL)
     {
         curRoot = curRoot->left;
@@ -170,6 +180,7 @@ Node* Tree::findMin(Node *curRoot)
     return curRoot;
 }
 
+/* find the maximum element in the BST*/
 int Tree::findMax()
 {
     Node *curRoot = root;
@@ -178,6 +189,7 @@ int Tree::findMax()
         cout << "empty list\n";
         return -1;
     }
+    //move to the right most node, it will contain the maximum value
     while (curRoot->right != NULL)
     {
         curRoot = curRoot->right;
@@ -186,25 +198,30 @@ int Tree::findMax()
     return curRoot->data;
 }
 
+/* insert an element to BST */
 void Tree::insert(Node **rootPtr, int elem)
 {
     Node*& root = *rootPtr; //root is an alias to what is pointed by rootPtr, now instead of using *rootPtr, can use root
     if (root == NULL)
     {
+        //root will point to new node
         root = getNode(elem);
         cout << "inserted node " << elem << endl;
     }
 
     else if (elem <= (root)->data)
     {
+        //for left subtree root->left will be the root
         insert(&(root)->left, elem);
     }
     else
     {
+        //for right subtree root->right will be the root
         insert(&(root)->right, elem);
     }
 }
 
+/* find if an element is contained in the BST*/
 bool Tree::search(Node *curroot, int elem)
 {
     if (curroot == NULL)
@@ -217,6 +234,7 @@ bool Tree::search(Node *curroot, int elem)
         cout << "found " << elem << endl;
         return true;
     }
+    //if value is not found in the root, search in right subtree if elem is greater than root->data
     if (curroot->data < elem)
     {
         return search(curroot->right, elem);
@@ -224,6 +242,7 @@ bool Tree::search(Node *curroot, int elem)
     else
         return search(curroot->left, elem);
 }
+
 
 int main()
 {

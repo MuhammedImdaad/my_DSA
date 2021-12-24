@@ -14,7 +14,7 @@ class LinkedList
     Node *head = NULL;
 
 public:
-    Node *getHead() { return head; }
+    Node *getHead() const { return head; }
     void printList();
     void printListRecF(Node *localHead);
     void printListRecR(Node *localHead);
@@ -27,6 +27,7 @@ public:
     void reverseStck();
 };
 
+/* print the list in reverse order using recursion*/
 void LinkedList::printListRecR(Node *localHead)
 {
     if (localHead == NULL)
@@ -38,6 +39,7 @@ void LinkedList::printListRecR(Node *localHead)
     cout << localHead->data << " ";
 }
 
+/* print the list in forward using recursion*/
 void LinkedList::printListRecF(Node *localHead)
 {
     if (localHead == NULL)
@@ -51,6 +53,7 @@ void LinkedList::printListRecF(Node *localHead)
     // no work to do while moving back
 }
 
+/* print the list using while loop*/
 void LinkedList::printList()
 {
     Node *localHead = head;
@@ -62,6 +65,7 @@ void LinkedList::printList()
     cout << endl;
 }
 
+/* delete a node from the list */
 void LinkedList::deleteatN(int pos)
 {
     if (pos < 0)
@@ -84,6 +88,7 @@ void LinkedList::deleteatN(int pos)
         cout << "deleted 0th node\n";
         return;
     }
+
     int i = pos;
     while (--pos) // move to the pos-1
     {
@@ -112,6 +117,7 @@ void LinkedList::deleteatN(int pos)
     cout << "deleted " << i << "th node\n";
 }
 
+/* insert a new node to the list*/
 void LinkedList::insertatN(int value, int pos)
 {
     Node *newNode = new Node; // newNode pointer variable contains the address of the new Node
@@ -153,6 +159,7 @@ void LinkedList::insertatN(int value, int pos)
     cout << "inserted new node at " << i << endl;
 }
 
+/* reverse a list using iteration */
 void LinkedList::reverseIter()
 {
 
@@ -169,6 +176,7 @@ void LinkedList::reverseIter()
     head = prevNode;
 }
 
+/* reverse a list using recursion */
 void LinkedList::reverseRec(Node *currentHead)
 {
     if (currentHead->next == NULL)
@@ -181,6 +189,7 @@ void LinkedList::reverseRec(Node *currentHead)
     currentHead->next = NULL; // new last link will not have null next value
 }
 
+/* reverse a list using stack*/
 void LinkedList::reverseStck()
 {
     stack<Node *> s;

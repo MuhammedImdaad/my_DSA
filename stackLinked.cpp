@@ -8,9 +8,10 @@ public:
     Node *next;
 };
 
+//since push and pop will happend from the beginning of the list, head will be the top of stack
 class Stack
 {
-    Node *top;
+    Node *top; 
 
 public:
     Stack()
@@ -18,7 +19,7 @@ public:
         top = NULL;
     }
 
-    void push(int elem)
+    void push(int elem) //equivalent to insert at pos=0
     {
         Node* newNode = new Node;
         newNode->data = elem;
@@ -26,7 +27,7 @@ public:
         top = newNode;
     }
 
-    void pop()
+    void pop() //equivalent to delete at pos=0
     {
         if (top==NULL)
         {

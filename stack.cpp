@@ -16,14 +16,15 @@ public:
         arrayPtr = new T[size];
         cout << "created stack\n";
     };
-    void push(T elem)
+
+    void push(T elem) 
     {
         if (top==size-1)
         {
             cout << "stack overflow\n";
             return;
         }
-        arrayPtr[++top] = elem;
+        arrayPtr[++top] = elem; //overwrite the value and increment the top
     }
     void pop()
     {
@@ -32,7 +33,7 @@ public:
             cout << "stack underflow\n";
             return;
         }
-        --top;
+        --top; //decrement the top
     }
     int getTop()
     {

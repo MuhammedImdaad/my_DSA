@@ -2,6 +2,11 @@
 #include <vector>
 
 using namespace std;
+/*
+i           0   1   2   3   4   5   6 
+fibonacci   0   1   1   2   3   5   8  
+factorial   1   1   2   6  24 120 720   
+*/
 
 int fibRec(int n)
 {
