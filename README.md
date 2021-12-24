@@ -12,3 +12,4 @@ this is a repository which contains my implementations of DSA in C++ mostly in O
 * fib_fac.cc - various methods to implement nth fibonacci and nth factorial number
 * graphs.cc - graph structure using adjacancy list method (standard STL List is used) (depth and breath first traversal)
 * sorting.cpp - implementation of selection sort, bubble sort, insertion sort, merge sort and quick sort
+* trees.cpp - binary tree specifically Binary Search Tree structure (designing a BST, inserting to BST, deleting from BST, binary tree traversal methods like level order, pre order, in order and post order, find an element, the minimum, maximum, height in BST, check if a binary tree is BST)

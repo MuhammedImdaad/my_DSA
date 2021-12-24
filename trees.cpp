@@ -36,59 +36,78 @@ public:
     void deleteNode(Node** rootPtr, int elem);
 };
 
-
+/* delete an element from a BST*/
 void Tree::deleteNode(Node** rootPtr, int elem)
 {
     Node*& root = *rootPtr; //root is an alias to what is pointed by rootPtr, now instead of using *rootPtr, can use root
     if (root==NULL) return;
+    //if root doesn't point to the data, move to left or right subtree
     if (root->data > elem) deleteNode(&root->left, elem);
     else if (root->data < elem) deleteNode(&root->right, elem);
-    else
+
+
+    else //root point to the element
     {
+        //if the node is a leaf
         if (root->right==NULL && root->left==NULL)
         {
+            //delete the node and mark root (which is either the real root or parent left or right pointer) as NULL
             cout << "\ndeleted " << root->data << " node\n";
             delete root;
             root = NULL;
         }
+
+        //if root contain only right sub tree
         else if (root->left==NULL)
         {
+            //replace the root which its right child
             Node* temp = root;
             root = root->right;
             cout << "\ndeleted " << root->data << " node\n";
             delete temp;
         }
+
+        //if root contain only left sub tree
         else if (root->right==NULL)
         {
+            //replace the root which its left child
             Node* temp = root;
             root = root->left;
             cout << "\ndeleted " << root->data << " node\n";
             delete temp;
         }
+
+        //root contain both children
         else 
         {
+            //replace the node with either the minimum of right subtree or the maximum of left subtree
             Node* minNode = findMin(root->right);
             cout << "\nupdated " << root->data << " node by " << minNode->data << " node\n";
             root->data = minNode->data;
+            //delete the minnode in the right subtree
             deleteNode(&root->right, minNode->data);
 
         }
     }
 }
 
-
+/* find if a binary tree is a BST or not*/
 bool Tree::isBST(Node *root, int min, int max)
 {
     if (root == NULL)
         return true;
+
+    //root data should be in the range of (min, max] and also left and right subtrees should be BSTs
     if ((root->data > min) && 
         (root->data <= max) && //since duplicates were allowed, the value should be greater than the left but can be smaller or equal to the left 
+
         /*   (4) (1,5]
              / \
             /  (5) (4,5]
            /
          (3) (1,4]
         */
+
         isBST(root->right, root->data, max) &&
         isBST(root->left, min, root->data))
         return true;
