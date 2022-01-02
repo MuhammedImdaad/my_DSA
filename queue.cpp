@@ -12,15 +12,17 @@ class Queue
 
 public:
     Queue(int size)
+        : N(size)
     {
-        N = size;
         q = new T[size];
         front = rear = -1;
     }
 
     T top()
     {
-        return q[front];
+        if (front != -1)
+            return q[front];
+        return -1;
     }
 
     bool isEmpty()
@@ -36,8 +38,9 @@ public:
     {
         if (!isEmpty())
         {
-            for (int i = front; i < rear + 1; i++)
+            for (int i = front; i != rear; i = (i + 1) % N)
                 cout << q[i] << " ";
+            cout << q[rear];
         }
         cout << endl;
     }
@@ -59,25 +62,25 @@ public:
             return;
         }
 
-        if (isEmpty()) // if empty, front and rear will both point to 0th location
+        if (rear == -1) // if empty, front and rear should both point to 0th location
             front = rear = 0;
         else
-            rear = (rear + 1) % N; //rear++
+            rear = (rear + 1) % N; // rear++
         q[rear] = elem;
     }
 
     void dequeue()
     {
-        if (isEmpty())
+        if (front == -1)
         {
             cout << "queue is empty\n";
             return;
         }
-        //when queue contain only one element
-        if (front == rear) 
+        // when queue contain only one element
+        if (front == rear)
             front = rear = -1;
         else
-            front = (front + 1) % N; //front++
+            front = (front + 1) % N; // front++
     }
     ~Queue()
     {
