@@ -2,61 +2,65 @@
 
 using namespace std;
 
-template<typename T>
+template <typename T>
 class Stack
 {
     int top;
     int size;
-    T* arrayPtr;
+    T *arrayPtr;
 
 public:
-    Stack(int size){
-        top = -1;
-        this->size = size;
+    Stack(int size)
+        : size(size), top(-1)
+    {
         arrayPtr = new T[size];
         cout << "created stack\n";
     };
 
-    void push(T elem) 
+    void push(T elem)
     {
-        if (top==size-1)
+        if (top == size - 1)
         {
             cout << "stack overflow\n";
             return;
         }
-        arrayPtr[++top] = elem; //overwrite the value and increment the top
+        arrayPtr[++top] = elem; // overwrite the value and increment the top
     }
+
     void pop()
     {
-        if (top==-1)
+        if (top == -1)
         {
             cout << "stack underflow\n";
             return;
         }
-        --top; //decrement the top
+        --top; // decrement the top
     }
+
     int getTop()
     {
-        return top;
+        return arrayPtr[top];
     }
+
     bool is_empty()
     {
-        return top==-1;
+        return top == -1;
     }
+
     void printStack()
     {
-        for (int i=0; i<top+1; i++)
+        for (int i = 0; i < top + 1; i++)
         {
             cout << arrayPtr[i] << " ";
         }
         cout << endl;
     }
+
     ~Stack()
     {
         delete[] arrayPtr;
         cout << "deleted array\n";
     }
-
 };
 
 int main()
@@ -78,5 +82,4 @@ int main()
     stack.printStack();
     stack.pop();
     stack.printStack();
-
 }
