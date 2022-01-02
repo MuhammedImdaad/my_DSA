@@ -13,7 +13,15 @@ class DoubleList
 {
     Node *head = NULL;
 
-    public:
+    Node *newElem(int data)
+    {
+        Node *node = new Node;
+        node->data = data;
+        node->next = node->prev = NULL;
+        return node;
+    }
+
+public:
     void insertatN(int elem, int pos = 0);
     void printList();
     void deleteatN(int pos = 0);
@@ -24,10 +32,7 @@ class DoubleList
 void DoubleList::insertatN(int elem, int pos)
 {
     // creata new node
-    Node *newNode = new Node;
-    newNode->data = elem;
-    newNode->prev = NULL;
-    newNode->next = NULL;
+    Node *newNode = newElem(elem);
 
     // if pos=0, head should point to the new node
     if (pos == 0)
@@ -43,9 +48,9 @@ void DoubleList::insertatN(int elem, int pos)
         return;
     }
 
-    Node *curHead = head; //to traverse the list
-    int i=pos;
-    while (--pos) //move to the pos-1 node
+    Node *curHead = head; // to traverse the list
+    int i = pos;
+    while (--pos) // move to the pos-1 node
     {
         if (curHead == NULL)
         {
@@ -60,20 +65,21 @@ void DoubleList::insertatN(int elem, int pos)
         return;
     }
 
-    //update prev and next pointes with pos-1 and pos+1 nodes
-    newNode->prev = curHead;
+    // update prev and next pointes with pos-1 and pos+1 nodes
     newNode->next = curHead->next;
-    if (curHead != NULL)
-    //pos+1 node should contain the new node in prev pointer
-        curHead->next->prev = newNode;
     curHead->next = newNode;
-    cout << "insert node at " << i<<endl;
+    newNode->prev = curHead;
+    // if pos+1 node it should contain the new node in prev pointer
+    if (newNode->next != NULL)
+        newNode->next->prev = newNode;
+
+    cout << "insert node at " << i << endl;
 }
 
 /* traverse the list in forward*/
 void DoubleList::printList()
 {
-    Node* curHead = head;
+    Node *curHead = head;
     while (curHead != NULL)
     {
         cout << curHead->data << " ";
@@ -85,12 +91,12 @@ void DoubleList::printList()
 /* traverse the list in backward */
 void DoubleList::printListR()
 {
-    Node* curHead = head;
-    while (curHead->next != NULL) //move to the last node
+    Node *curHead = head;
+    while (curHead->next != NULL) // move to the last node
     {
         curHead = curHead->next;
     }
-    while (curHead != NULL) //move back to the front
+    while (curHead != NULL) // move back to the front
     {
         cout << curHead->data << " ";
         curHead = curHead->prev;
@@ -101,11 +107,13 @@ void DoubleList::printListR()
 /* delete a node in the list*/
 void DoubleList::deleteatN(int pos)
 {
-
+    if (head == NULL)
+        return;
     if (pos == 0)
     {
-        //update the head+1 node's prev pointer and head move forward
+        // update the head+1 node's prev pointer and head move forward
         Node *dltNode = head;
+        //since head is not NULL
         dltNode->next->prev = NULL;
         head = dltNode->next;
         delete dltNode;
@@ -113,8 +121,8 @@ void DoubleList::deleteatN(int pos)
         return;
     }
 
-    Node *curHead = head; //to move to pos
-    while (pos--) //move to the delete node and update pos-1 and pos+1 nodes
+    Node *curHead = head; // to move to pos-1
+    while (--pos)         // move to the pos-1 node and update pos-1 and pos+1 nodes
     {
         if (curHead == NULL)
         {
@@ -124,18 +132,19 @@ void DoubleList::deleteatN(int pos)
         curHead = curHead->next;
     }
 
-    curHead->prev->next = curHead->next;
-    if (curHead->next != NULL)
-        curHead->next->prev = curHead->prev;
-    delete curHead;
+
+    Node *dltNode = curHead->next;
+    curHead->next = dltNode->next;
+    if (dltNode->next != NULL)
+        dltNode->next->prev = curHead;
+    delete dltNode;
     cout << "node deleted\n";
 }
-
 
 int main()
 {
     DoubleList d;
-    int n=5;
+    int n = 5;
     while (n--)
     {
         d.insertatN(n);
