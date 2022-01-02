@@ -13,6 +13,14 @@ class LinkedList
 {
     Node *head = NULL;
 
+    Node* newNode(int value)
+    {
+        Node *newNode = new Node; // newNode pointer variable contains the address of the new Node
+        newNode->data = value;
+        newNode->next = NULL;
+        return newNode;
+    }
+
 public:
     Node *getHead() const { return head; }
     void printList();
@@ -111,8 +119,8 @@ void LinkedList::deleteatN(int pos)
         return;
     }
     // pos-1 node should point to the next of the delete node
-    //if the delete node is the last element then the current node will point to null
-    curHead->next = dltNode->next; 
+    // if the delete node is the last element then the current node will point to null
+    curHead->next = dltNode->next;
     delete dltNode;
     cout << "deleted " << i << "th node\n";
 }
@@ -120,10 +128,6 @@ void LinkedList::deleteatN(int pos)
 /* insert a new node to the list*/
 void LinkedList::insertatN(int value, int pos)
 {
-    Node *newNode = new Node; // newNode pointer variable contains the address of the new Node
-    newNode->data = value;
-    newNode->next = NULL;
-
     if (pos < 0)
     {
         cout << "provide nonneg position\n";
@@ -131,6 +135,8 @@ void LinkedList::insertatN(int value, int pos)
     }
     if (pos == 0)
     {
+        Node* newNode = LinkedList::newNode(value);
+
         newNode->next = head; // next should contain the address of the node which head points
         head = newNode;       // head should now point to the new Node
         cout << "inserted node at " << pos << endl;
@@ -153,6 +159,8 @@ void LinkedList::insertatN(int value, int pos)
         cout << "out of range\n";
         return;
     }
+    Node* newNode = LinkedList::newNode(value);
+
     // new node should contain the address of the next node and the previous node should contain the address of the new node
     newNode->next = curHead->next;
     curHead->next = newNode;
@@ -194,16 +202,16 @@ void LinkedList::reverseStck()
 {
     stack<Node *> s;
     Node *curHead = head;
-    //push all the addresses of the nodes
+    // push all the addresses of the nodes
     while (curHead != NULL)
     {
-        s.push(curHead); 
+        s.push(curHead);
         curHead = curHead->next;
     }
-    //assign the last node to head
+    // assign the last node to head
     head = s.top();
     s.pop();
-    
+
     // move back through the stack and update the next value in nodes
     curHead = head;
     while (!s.empty())
@@ -212,7 +220,7 @@ void LinkedList::reverseStck()
         s.pop();
         curHead = curHead->next;
     }
-    //update the last nodes next to NULL
+    // update the last nodes next to NULL
     curHead->next = NULL;
 }
 
