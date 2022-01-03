@@ -61,20 +61,20 @@ void Tree::deleteNode(Node** rootPtr, int elem)
         else if (root->left==NULL)
         {
             //replace the root which its right child
-            Node* temp = root;
-            root = root->right;
+            Node* dltNode = root;
+            root = dltNode->right;
             cout << "\ndeleted " << root->data << " node\n";
-            delete temp;
+            delete dltNode;
         }
 
         //if root contain only left sub tree
         else if (root->right==NULL)
         {
             //replace the root which its left child
-            Node* temp = root;
-            root = root->left;
+            Node* dltNode = root;
+            root = dltNode->left;
             cout << "\ndeleted " << root->data << " node\n";
-            delete temp;
+            delete dltNode;
         }
 
         //root contain both children
@@ -99,7 +99,7 @@ bool Tree::isBST(Node *root, int min, int max)
 
     //root data should be in the range of (min, max] and also left and right subtrees should be BSTs
     if ((root->data > min) && 
-        (root->data <= max) && //since duplicates were allowed, the value should be greater than the left but can be smaller or equal to the left 
+        (root->data < max) && //(root->data <= max) //since duplicates were allowed, the value should be greater than the left but can be smaller or equal to the left 
 
         /*   (4) (1,5]
              / \
@@ -228,12 +228,12 @@ void Tree::insert(Node **rootPtr, int elem)
         cout << "inserted node " << elem << endl;
     }
 
-    else if (elem <= (root)->data)
+    else if (elem < (root)->data)
     {
         //for left subtree root->left will be the root
         insert(&(root)->left, elem);
     }
-    else
+    else if (elem > (root)->data)
     {
         //for right subtree root->right will be the root
         insert(&(root)->right, elem);
