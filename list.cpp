@@ -13,7 +13,7 @@ class LinkedList
 {
     Node *head = NULL;
 
-    Node* newNode(int value)
+    Node *newNode(int value)
     {
         Node *newNode = new Node; // newNode pointer variable contains the address of the new Node
         newNode->data = value;
@@ -33,7 +33,42 @@ public:
     void reverseIter();
     void reverseRec(Node *currentHead);
     void reverseStck();
+    Node *copyList();
 };
+
+/* copy a linked list into a new list*/
+Node *LinkedList::copyList()
+{
+    Node *newHead = NULL; // define two new pointers
+    Node *newTail = NULL;
+
+    Node *curHead = head; //
+
+    if (curHead != NULL) // update the new head and tail, this should point to the new node
+    {
+        Node *newNode = new Node;
+        newNode->data = curHead->data;
+        newNode->next = newHead;
+
+        newHead = newTail = newNode;
+        curHead = curHead->next;
+    }
+
+    while (curHead != NULL) // for the remaining nodes update the newTail
+    {
+        Node *newNode = new Node;
+        newNode->data = curHead->data;
+        newNode->next = NULL;
+
+        //new tail points to new node
+        newTail->next = newNode;
+        newTail = newNode;
+
+        curHead = curHead->next;
+    }
+
+    return newHead;
+}
 
 /* print the list in reverse order using recursion*/
 void LinkedList::printListRecR(Node *localHead)
@@ -135,7 +170,7 @@ void LinkedList::insertatN(int value, int pos)
     }
     if (pos == 0)
     {
-        Node* newNode = LinkedList::newNode(value);
+        Node *newNode = LinkedList::newNode(value);
 
         newNode->next = head; // next should contain the address of the node which head points
         head = newNode;       // head should now point to the new Node
@@ -159,7 +194,7 @@ void LinkedList::insertatN(int value, int pos)
         cout << "out of range\n";
         return;
     }
-    Node* newNode = LinkedList::newNode(value);
+    Node *newNode = LinkedList::newNode(value);
 
     // new node should contain the address of the next node and the previous node should contain the address of the new node
     newNode->next = curHead->next;

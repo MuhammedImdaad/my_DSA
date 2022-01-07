@@ -1,7 +1,7 @@
 # my_DSA
 this is a repository which contains my implementations of DSA in C++ mostly in OOP style
 
-* list.cpp - linked list (traverse, insertion, deletion, reversing)
+* list.cpp - linked list (traverse, insertion, deletion, reversing, copying)
 * doubleList.cpp - doubly linked list (traverse, insertion, deletion)
 * stack.cpp - stack structure using arrays (push, pop, traverse)
 * stackLinked.cpp - stack structure using linked lists (push, pop, traverse)
