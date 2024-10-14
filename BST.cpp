@@ -63,10 +63,7 @@ class BST
             else if (node->left || node->right)
             {
                 Node *deleteNode = node;
-                if (node->left)
-                    node = node->left;
-                else
-                    node = node->right;
+                node = node->right ? node->right : node->left;
                 delete deleteNode;
             }
             else
